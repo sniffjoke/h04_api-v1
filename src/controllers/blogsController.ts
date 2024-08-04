@@ -1,12 +1,20 @@
 import {Request, Response} from 'express';
 import {ObjectId} from "mongodb";
 import {blogsRepository} from "../repositories/blogsRepository";
+import {BlogPaginanorModel} from "../types/db.interface";
 
 
-export const getController = async (req: Request<any, any, any, {SearchNameTerm: string}>, res: Response) => {
+export const getController = async (req: Request<any, any, any, any>, res: Response) => {
     if (req.query.SearchNameTerm) {
         const blogs = await blogsRepository.getAllBlogsWithQuery(req.query.SearchNameTerm)
-        res.status(200).json(blogs)
+        // Promise<Omit<BlogPaginanorModel, 'items'>>
+        const queryResponse: Omit<BlogPaginanorModel, 'items'> = {
+            page: req.query.page,
+            pagesCount: req.query.pagesCount,
+            pageSize: req.query.pageSize,
+            totalCount: req.query.totalCount
+        }
+        res.status(200).json({...queryResponse, items: blogs})
     } else {
         const blogs = await blogsRepository.getAllBlogs()
         res.status(200).json(blogs)

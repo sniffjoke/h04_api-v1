@@ -12,6 +12,7 @@ export const blogsRepository = {
 
     async getAllBlogsWithQuery(query: string) {
         query = query.toLowerCase()
+        console.log(query)
         const blogs = await blogCollection.find({name: {$regex: query}}).toArray()
         // const sortedBlogs = blogs.filter(blog => {
         //     return blog.name.toLowerCase().indexOf(query) > -1
