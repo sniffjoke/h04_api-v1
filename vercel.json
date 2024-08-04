@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "h03_api-v1-moongodb-st",
+  "name": "h04_api-v1",
   "builds": [
     { "src": "src/index.ts", "use": "@vercel/node" }
   ],
