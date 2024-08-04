@@ -23,7 +23,6 @@ export const blogsRepository = {
         // console.log(newBlog)
         const blog = {
             ...newBlog,
-            query: newBlog,
             isMembership: false,
             createdAt: new Date(Date.now()).toISOString()
         }

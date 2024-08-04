@@ -14,11 +14,19 @@ export const getController = async (req: Request<any, any, any, any>, res: Respo
             pageSize: req.query.pageSize,
             totalCount: req.query.totalCount
         }
-        await blogsRepository.create(req.query)
+
         res.status(200).json({...queryResponse, items: blogs})
     } else {
         const blogs = await blogsRepository.getAllBlogs()
-        res.status(200).json(blogs)
+        const queryResponse: Omit<BlogPaginatorModel, 'items'> = {
+            page: req.query.page,
+            pagesCount: req.query.pagesCount,
+            pageSize: req.query.pageSize,
+            totalCount: req.query.totalCount
+        }
+
+        res.status(200).json({...queryResponse, items: blogs})
+        // res.status(200).json(blogs)
     }
 }
 
