@@ -58,6 +58,7 @@ router.route('/:id/posts')
     )
     .post(
         authMiddleware,
+        idBlogValidator,
         contentPostValidator,
         shortDescriptionPostValidator,
         titlePostValidator,
