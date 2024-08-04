@@ -21,7 +21,12 @@ app.get('/', (req, res) => {
 
 })
 
-// app.use(express.urlencoded({extended: false}))
+// app.get('/api/blogs/:id/posts', (req, res) => {
+//     console.log(req.params)
+//     res.status(200).json({version: '2.0'})
+// })
+
 app.use(SETTINGS.PATH.BLOGS, blogsRoutes)
+app.use(SETTINGS.PATH.BLOGS + '/posts', blogsRoutes)
 app.use(SETTINGS.PATH.POSTS, postsRoutes)
 app.use(SETTINGS.PATH.TESTING, testingRoutes)

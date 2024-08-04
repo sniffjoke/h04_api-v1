@@ -14,7 +14,7 @@ export interface PostDBTypeResponse {
     title: string;
     shortDescription: string;
     content: string;
-    blogId: ObjectId;
+    blogId: string;
     blogName: string;
     createdAt?: string;
 }

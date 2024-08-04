@@ -38,7 +38,7 @@ export const postsRepository = {
         return updatedPost
     },
 
-    async findPostForRender(postId: ObjectId) {
+    async renderPost(postId: ObjectId) {
         const post = await this.findPostById(postId)
         return this.postMapForRender(post as any)
     },
@@ -58,6 +58,11 @@ export const postsRepository = {
 
     async postDelete(postId: ObjectId): Promise<DeleteResult> {
         return await postCollection.deleteOne({_id: postId})
+    },
+
+    async findPostsByBlogId(blogId: string) {
+        const posts = await postCollection.find({blogId}).toArray()
+        return posts.map((post: any) => this.postMapForRender(post))
     }
 
 }

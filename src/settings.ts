@@ -12,7 +12,7 @@ export const SETTINGS = {
         ADMIN: process.env.ADMIN || 'admin:qwerty',
     },
     VARIABLES: {
-        DB_NAME: 'newbd',
+        DB_NAME: 'bd_4',
         BLOG_COLLECTION_NAME: 'blogs',
         POST_COLLECTION_NAME: 'posts',
     }

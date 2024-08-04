@@ -14,6 +14,7 @@ import {
 } from "../middlewares/blogsValidators";
 import {errorMiddleware} from "../middlewares/errorMiddleware";
 import {authMiddleware} from "../middlewares/authMiddleware";
+import {getPostsByBlogId, postPostByBlogId} from "../controllers/postsController";
 
 
 const router = express.Router();
@@ -49,5 +50,19 @@ router.route('/:id')
         errorMiddleware,
         getControllerById
     );
+
+router.route('/:id/posts')
+    .get(
+        getPostsByBlogId
+    )
+    .post(
+        authMiddleware,
+        nameBlogValidator,
+        descriptionBlogValidator,
+        websiteUrlValidator,
+        errorMiddleware,
+        postPostByBlogId
+    )
+
 
 export default router
