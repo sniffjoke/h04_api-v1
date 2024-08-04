@@ -13,10 +13,11 @@ export interface PostDBType {
     blogId: string;
 }
 
-export interface BlogPaginanorModel {
-    pagesCount: number;
-    page: number;
-    pageSize: number;
-    totalCount: number;
+export interface BlogPaginatorModel {
+    pagesCount?: number;
+    page?: number;
+    pageSize?: number;
+    totalCount?: number;
+    searchNameTerm?: string;
     items: BlogDBTypeResponse[];
 }
