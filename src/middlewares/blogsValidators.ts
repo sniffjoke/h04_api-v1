@@ -1,7 +1,6 @@
 import {body, param} from "express-validator";
 import {blogsRepository} from "../repositories/blogsRepository";
 import {ObjectId} from "mongodb";
-// import blogService from "../services/blogService";
 
 
 export const nameBlogValidator = body('name')
@@ -23,7 +22,6 @@ export const websiteUrlValidator = body('websiteUrl')
 export const idBlogValidator = param('id')
     .custom(async blogId => {
         const blog = await blogsRepository.findBlogById(new ObjectId(blogId))
-        console.log(blogId)
         if (!blog) {
             throw new Error('Not found')
         } else {

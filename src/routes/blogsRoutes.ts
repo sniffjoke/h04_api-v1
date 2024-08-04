@@ -17,7 +17,6 @@ import {authMiddleware} from "../middlewares/authMiddleware";
 import {getPostsByBlogId, postPostByBlogId} from "../controllers/postsController";
 import {
     contentPostValidator,
-    idPostValidator,
     shortDescriptionPostValidator,
     titlePostValidator
 } from "../middlewares/postsValidators";
@@ -59,11 +58,13 @@ router.route('/:id')
 
 router.route('/:id/posts')
     .get(
+        idBlogValidator,
+        errorMiddleware,
         getPostsByBlogId
     )
     .post(
         authMiddleware,
-        idPostValidator,
+        idBlogValidator,
         contentPostValidator,
         shortDescriptionPostValidator,
         titlePostValidator,

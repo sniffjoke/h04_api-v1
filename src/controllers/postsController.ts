@@ -7,7 +7,6 @@ import {blogsRepository} from "../repositories/blogsRepository";
 export const getController = async (req: Request, res: Response) => {
     try {
         const posts = await postsRepository.getAllPosts()
-        console.log(posts)
         res.status(200).json(posts)
     } catch (e) {
         res.status(500).send(e)
