@@ -5,7 +5,8 @@ import {BlogPaginanorModel} from "../types/db.interface";
 
 
 export const getController = async (req: Request<any, any, any, any>, res: Response) => {
-    if (req.query.SearchNameTerm) {
+    console.log(req.query)
+    if (req.query.pagesCount) {
         const blogs = await blogsRepository.getAllBlogsWithQuery(req.query.SearchNameTerm)
         // Promise<Omit<BlogPaginanorModel, 'items'>>
         const queryResponse: Omit<BlogPaginanorModel, 'items'> = {
