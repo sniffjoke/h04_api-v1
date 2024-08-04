@@ -5,6 +5,7 @@ import {BlogPaginatorModel} from "../types/db.interface";
 
 
 export const getController = async (req: Request<any, any, any, any>, res: Response) => {
+    console.log(req.query)
     if (Object.keys(req.query).length > 0) {
         const blogs = await blogsRepository.getAllBlogsWithQuery(req.query.SearchNameTerm)
         // Promise<Omit<BlogPaginanorModel, 'items'>>
