@@ -11,7 +11,6 @@ export const postsRepository = {
     },
 
     async create(newPost: PostDBType): Promise<any> {
-
         const post = {
             ...newPost,
             blogId: newPost.blogId,
