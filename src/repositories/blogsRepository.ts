@@ -20,8 +20,10 @@ export const blogsRepository = {
     },
 
     async create(newBlog: BlogDBType): Promise<any> {
+        // console.log(newBlog)
         const blog = {
             ...newBlog,
+            query: newBlog,
             isMembership: false,
             createdAt: new Date(Date.now()).toISOString()
         }

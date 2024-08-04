@@ -18,6 +18,6 @@ export interface BlogPaginatorModel {
     page?: number;
     pageSize?: number;
     totalCount?: number;
-    searchNameTerm?: string;
+    SearchNameTerm?: string;
     items: BlogDBTypeResponse[];
 }
