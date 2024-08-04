@@ -10,6 +10,15 @@ export const blogsRepository = {
         return blogs.map(blog => this.blogMapForRender(blog))
     },
 
+    async getAllBlogsWithQuery(query: string) {
+        query = query.toLowerCase()
+        const blogs = await blogCollection.find({name: {$regex: query}}).toArray()
+        // const sortedBlogs = blogs.filter(blog => {
+        //     return blog.name.toLowerCase().indexOf(query) > -1
+        // })
+        return blogs.map(blog => this.blogMapForRender(blog))
+    },
+
     async create(newBlog: BlogDBType): Promise<any> {
         const blog = {
             ...newBlog,

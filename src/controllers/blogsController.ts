@@ -3,9 +3,14 @@ import {ObjectId} from "mongodb";
 import {blogsRepository} from "../repositories/blogsRepository";
 
 
-export const getController = async (req: Request, res: Response) => {
-    const blogs = await blogsRepository.getAllBlogs()
-    res.status(200).json(blogs)
+export const getController = async (req: Request<any, any, any, {SearchNameTerm: string}>, res: Response) => {
+    if (req.query.SearchNameTerm) {
+        const blogs = await blogsRepository.getAllBlogsWithQuery(req.query.SearchNameTerm)
+        res.status(200).json(blogs)
+    } else {
+        const blogs = await blogsRepository.getAllBlogs()
+        res.status(200).json(blogs)
+    }
 }
 
 export const getControllerById = async (req: Request, res: Response) => {
