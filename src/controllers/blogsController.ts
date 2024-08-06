@@ -1,33 +1,22 @@
 import {Request, Response} from 'express';
 import {ObjectId} from "mongodb";
 import {blogsRepository} from "../repositories/blogsRepository";
-import {BlogPaginatorModel} from "../types/db.interface";
+import {queryHelper} from "../helpers/helpers";
 
 
 export const getController = async (req: Request<any, any, any, any>, res: Response) => {
-    if (Object.keys(req.query).length > 0) {
-        const blogs = await blogsRepository.getAllBlogsWithQuery(req.query.SearchNameTerm)
-        // Promise<Omit<BlogPaginanorModel, 'items'>>
-        const queryResponse: Omit<BlogPaginatorModel, 'items'> = {
-            page: req.query.page,
-            pagesCount: req.query.pagesCount,
-            pageSize: req.query.pageSize,
-            totalCount: req.query.totalCount
-        }
+    const query = queryHelper(req.query)
+    // const blogs = await blogsRepository.getAllBlogsWithQuery(req.query.SearchNameTerm)
+    const blogs = await blogsRepository.getAllBlogs(query)
+    // Promise<Omit<BlogPaginanorModel, 'items'>>
+    // const queryResponse: Omit<BlogPaginatorModel, 'items'> = {
+    //     page: req.query.page,
+    //     pagesCount: req.query.pagesCount,
+    //     pageSize: req.query.pageSize,
+    //     totalCount: req.query.totalCount
+    // }
 
-        res.status(200).json({...queryResponse, items: blogs})
-    } else {
-        const blogs = await blogsRepository.getAllBlogs()
-        const queryResponse: Omit<BlogPaginatorModel, 'items'> = {
-            page: req.query.page,
-            pagesCount: req.query.pagesCount,
-            pageSize: req.query.pageSize,
-            totalCount: req.query.totalCount
-        }
-
-        res.status(200).json({...queryResponse, items: blogs})
-        // res.status(200).json(blogs)
-    }
+    res.status(200).json({...blogs})
 }
 
 export const getControllerById = async (req: Request, res: Response) => {

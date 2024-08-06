@@ -61,7 +61,7 @@ describe('/blogs', () => {
     it('should return all blogs', async () => {
         const res = await req.get(SETTINGS.PATH.BLOGS)
         expect(res.status).toBe(200)
-        console.log('lengtn: ', res.body)
+        console.log('length: ', res.body)
         expect(res.body.length).toBeGreaterThan(0)
         // expect(res.body).toEqual()
     })
