@@ -16,8 +16,8 @@ export const queryHelper = async (query: { [key: string]: string | undefined }) 
         // totalCount: query.totalCount ? +query.totalCount : 1,
         //
         totalCount,
-        pageSize: pageSize !== undefined ? +pageSize : 10,
-        pagesCount: pageSize ? Math.ceil( totalCount / +pageSize) : 1,
+        pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
+        pagesCount: pageSize,
         page: query.pageNumber ? Number(query.pageNumber) : 1,
         sortBy: query.sortBy ? query.sortBy : 'createdAt',
         sortDirection: query.sortDirection ? query.sortDirection : 'desc',
