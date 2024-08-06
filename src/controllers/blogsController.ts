@@ -5,7 +5,7 @@ import {queryHelper} from "../helpers/helpers";
 
 
 export const getController = async (req: Request<any, any, any, any>, res: Response) => {
-    const query = await queryHelper(req.query)
+    const query = await queryHelper(req.query, 'blogs')
     const blogs = await blogsRepository.getAllBlogs(query)
     const {
         pageSize,

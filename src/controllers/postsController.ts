@@ -9,7 +9,7 @@ export const getController = async (req: Request<any, any, any, any>, res: Respo
     try {
         // const posts = await postsRepository.getAllPosts()
         // res.status(200).json(posts)
-        const query = await queryHelper(req.query)
+        const query = await queryHelper(req.query, 'posts')
         const posts = await postsRepository.getAllPosts(query)
         const {
             pageSize,
@@ -75,7 +75,7 @@ export const getPostsByBlogId = async (req: Request<any, any, any, any>, res: Re
     try {
         // const posts = await postsRepository.findPostsByBlogId(req.params.id)
         // res.status(200).json(posts)
-        const query = await queryHelper(req.query)
+        const query = await queryHelper(req.query, 'posts')
         const posts = await postsRepository.findPostsByBlogId(req.params.id, query)
         const {
             pageSize,

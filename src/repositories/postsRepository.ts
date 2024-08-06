@@ -74,7 +74,7 @@ export const postsRepository = {
         // const posts = await postCollection.find({blogId}).toArray()
         // return posts.map((post: any) => this.postMapForRender(post))
         const posts = await postCollection
-            .find()
+            .find({blogId})
             .sort(query.sortBy, query.sortDirection)
             .limit(query.pageSize)
             .skip((query.page - 1) * query.pageSize)
