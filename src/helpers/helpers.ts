@@ -3,9 +3,7 @@ import {db} from "../db/mongo-db";
 export const queryHelper = async (query: { [key: string]: string | undefined }, searchProperty: 'blogs' | 'posts') => {
     const searchNameTerm = query.searchNameTerm ? query.searchNameTerm : null
     const queryName = searchNameTerm !== null ? searchNameTerm : ''
-    const filter = {
-        name: {$regex: queryName, $options: "i"},
-    }
+    const filter = searchProperty === 'blogs' ? {name: {$regex: queryName, $options: "i"},} : {title: {$regex: queryName, $options: "i"},};
     // const totalCount = await blogCollection.countDocuments(filter)
     const totalCount = await db.collection(searchProperty).countDocuments(filter)
     const pageSize = query.pageSize !== undefined ? +query.pageSize : 10
