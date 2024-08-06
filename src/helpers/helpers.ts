@@ -16,9 +16,11 @@ export const queryHelper = async (query: { [key: string]: string | undefined }) 
         // totalCount: query.totalCount ? +query.totalCount : 1,
         //
         totalCount,
-        // pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
         pageSize: pageSize !== undefined ? +pageSize : 10,
         pagesCount: pageSize ? Math.ceil( totalCount / +pageSize) : 1,
         page: query.pageNumber ? Number(query.pageNumber) : 1,
+        sortBy: query.sortBy ? query.sortBy : 'createdAt',
+        sortDirection: query.sortDirection ? query.sortDirection : 'desc',
+        searchNameTerm: query.searchNameTerm ? query.searchNameTerm : null,
     }
 }

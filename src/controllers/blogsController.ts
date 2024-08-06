@@ -8,6 +8,13 @@ export const getController = async (req: Request<any, any, any, any>, res: Respo
     const query = await queryHelper(req.query)
     // const blogs = await blogsRepository.getAllBlogsWithQuery(req.query.SearchNameTerm)
     const blogs = await blogsRepository.getAllBlogs(query)
+    const {
+        pageSize,
+        pagesCount,
+        totalCount,
+        page,
+        items
+    } = blogs
     // Promise<Omit<BlogPaginanorModel, 'items'>>
     // const queryResponse: Omit<BlogPaginatorModel, 'items'> = {
     //     page: req.query.page,
@@ -16,7 +23,13 @@ export const getController = async (req: Request<any, any, any, any>, res: Respo
     //     totalCount: req.query.totalCount
     // }
 
-    res.status(200).json({...blogs})
+    res.status(200).json({
+        pageSize,
+        pagesCount,
+        totalCount,
+        page,
+        items
+    })
 }
 
 export const getControllerById = async (req: Request, res: Response) => {
