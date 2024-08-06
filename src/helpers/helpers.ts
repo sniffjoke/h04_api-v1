@@ -6,6 +6,7 @@ export const queryHelper = async (query: { [key: string]: string | undefined }, 
     const filter = searchProperty === 'blogs' ? {name: {$regex: queryName, $options: "i"},} : {title: {$regex: queryName, $options: "i"},};
     // const totalCount = await blogCollection.countDocuments(filter)
     const totalCount = await db.collection(searchProperty).countDocuments(filter)
+    console.log(totalCount)
     const pageSize = query.pageSize !== undefined ? +query.pageSize : 10
     const pagesCount = Math.ceil(totalCount / +pageSize)
 
