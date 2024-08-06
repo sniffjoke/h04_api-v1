@@ -12,7 +12,6 @@ export const blogsRepository = {
 
 
     async getAllBlogs(query: any) {
-        console.log(query)
         const blogs = await blogCollection
             .find()
             .sort(query.sortBy, query.sortDirection)

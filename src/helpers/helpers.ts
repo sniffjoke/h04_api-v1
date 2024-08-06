@@ -2,7 +2,8 @@ import {blogCollection} from "../db/mongo-db";
 
 export const queryHelper = async (query: { [key: string]: string | undefined }) => {
     const totalCount = await blogCollection.countDocuments()
-    const pagesCount = query.pageSize ? Math.ceil(totalCount / +query.pageSize) : 10
+    const pageSize = query.pageSize !== undefined ? +query.pageSize : 10
+    const pagesCount = Math.ceil(totalCount / +pageSize)
     return {
         // pageNumber: query.pageNumber ? +query.pageNumber : 1,
         // pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
@@ -16,7 +17,7 @@ export const queryHelper = async (query: { [key: string]: string | undefined }) 
         // totalCount: query.totalCount ? +query.totalCount : 1,
         //
         totalCount,
-        pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
+        pageSize,
         // pagesCount: pageSize ? Math.ceil( totalCount / +pageSize) : 1,
         pagesCount,
         page: query.pageNumber ? Number(query.pageNumber) : 1,
