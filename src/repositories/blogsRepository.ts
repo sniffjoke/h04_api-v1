@@ -10,8 +10,12 @@ export const blogsRepository = {
     //     return blogs.map(blog => this.blogMapForRender(blog))
     // },
 
+
     async getAllBlogs(query: any) {
-        const blogs = await blogCollection.find().limit(query.pageSize).toArray()
+        const blogs = await blogCollection.find()
+            .limit(query.pageSize)
+            .skip((query.page - 1) * query.pageSize)
+            .toArray()
         return {
             ...query,
             items: blogs.map(blog => this.blogMapForRender(blog))

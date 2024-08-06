@@ -20,6 +20,6 @@ export const queryHelper = async (query: { [key: string]: string | undefined }) 
         totalCount,
         pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
         pagesCount: query.pageSize ? Math.ceil( totalCount / +query.pageSize) : 1,
-        page: query.page ? Number(query.page) : 1,
+        page: query.pageNumber ? Number(query.pageNumber) : 1,
     }
 }
