@@ -1,9 +1,16 @@
 import {blogCollection} from "../db/mongo-db";
 
 export const queryHelper = async (query: { [key: string]: string | undefined }) => {
-    const totalCount = await blogCollection.countDocuments()
+    const searchNameTerm = query.searchNameTerm ? query.searchNameTerm : null
+    const queryName = searchNameTerm !== null ? searchNameTerm : ''
+    const filter = {
+        name: {$regex: queryName, $options: "i"},
+    }
+    const totalCount = await blogCollection.countDocuments(filter)
+    console.log(totalCount)
     const pageSize = query.pageSize !== undefined ? +query.pageSize : 10
     const pagesCount = Math.ceil(totalCount / +pageSize)
+
     return {
         // pageNumber: query.pageNumber ? +query.pageNumber : 1,
         // pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
@@ -23,6 +30,6 @@ export const queryHelper = async (query: { [key: string]: string | undefined }) 
         page: query.pageNumber ? Number(query.pageNumber) : 1,
         sortBy: query.sortBy ? query.sortBy : 'createdAt',
         sortDirection: query.sortDirection ? query.sortDirection : 'desc',
-        searchNameTerm: query.searchNameTerm ? query.searchNameTerm : null,
+        searchNameTerm,
     }
 }
