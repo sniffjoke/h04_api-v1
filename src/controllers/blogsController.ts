@@ -6,7 +6,6 @@ import {queryHelper} from "../helpers/helpers";
 
 export const getController = async (req: Request<any, any, any, any>, res: Response) => {
     const query = await queryHelper(req.query)
-    // const blogs = await blogsRepository.getAllBlogsWithQuery(req.query.SearchNameTerm)
     const blogs = await blogsRepository.getAllBlogs(query)
     const {
         pageSize,
@@ -15,14 +14,6 @@ export const getController = async (req: Request<any, any, any, any>, res: Respo
         page,
         items
     } = blogs
-    // Promise<Omit<BlogPaginanorModel, 'items'>>
-    // const queryResponse: Omit<BlogPaginatorModel, 'items'> = {
-    //     page: req.query.page,
-    //     pagesCount: req.query.pagesCount,
-    //     pageSize: req.query.pageSize,
-    //     totalCount: req.query.totalCount
-    // }
-
     res.status(200).json({
         pageSize,
         pagesCount,

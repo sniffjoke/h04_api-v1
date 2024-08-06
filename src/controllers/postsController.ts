@@ -2,12 +2,29 @@ import {Request, Response} from 'express';
 import {ObjectId} from "mongodb";
 import {postsRepository} from "../repositories/postsRepository";
 import {blogsRepository} from "../repositories/blogsRepository";
+import {queryHelper} from "../helpers/helpers";
 
 
-export const getController = async (req: Request, res: Response) => {
+export const getController = async (req: Request<any, any, any, any>, res: Response) => {
     try {
-        const posts = await postsRepository.getAllPosts()
-        res.status(200).json(posts)
+        // const posts = await postsRepository.getAllPosts()
+        // res.status(200).json(posts)
+        const query = await queryHelper(req.query)
+        const posts = await postsRepository.getAllPosts(query)
+        const {
+            pageSize,
+            pagesCount,
+            totalCount,
+            page,
+            items
+        } = posts
+        res.status(200).json({
+            pageSize,
+            pagesCount,
+            totalCount,
+            page,
+            items
+        })
     } catch (e) {
         res.status(500).send(e)
     }

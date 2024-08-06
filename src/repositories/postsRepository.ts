@@ -5,9 +5,20 @@ import {PostDBTypeResponse} from "../types/db.response.interface";
 
 
 export const postsRepository = {
-    async getAllPosts() {
-        const posts = await postCollection.find().toArray()
-        return posts.map((post: any) => this.postMapForRender(post))
+
+    async getAllPosts(query: any) {
+        // const posts = await postCollection.find().toArray()
+        // return posts.map((post: any) => this.postMapForRender(post))
+        const posts = await postCollection
+            .find()
+            .sort(query.sortBy, query.sortDirection)
+            .limit(query.pageSize)
+            .skip((query.page - 1) * query.pageSize)
+            .toArray()
+        return {
+            ...query,
+            items: posts.map((post: any) => this.postMapForRender(post))
+        }
     },
 
     async create(newPost: PostDBType): Promise<any> {

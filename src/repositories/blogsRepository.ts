@@ -5,18 +5,12 @@ import {BlogDBTypeResponse} from "../types/db.response.interface";
 
 
 export const blogsRepository = {
-    // async getAllBlogs() {
-    //     const blogs = await blogCollection.find().toArray()
-    //     return blogs.map(blog => this.blogMapForRender(blog))
-    // },
-
-
+    
     async getAllBlogs(query: any) {
         const queryName = query.searchNameTerm !== null ? query.searchNameTerm : ''
         const filter = {
             name: {$regex: queryName, $options: "i"},
         }
-
         const blogs = await blogCollection
             .find(filter)
             .sort(query.sortBy, query.sortDirection)
@@ -28,15 +22,6 @@ export const blogsRepository = {
             items: blogs.map(blog => this.blogMapForRender(blog))
         }
     },
-
-    // async getAllBlogsWithQuery(query: string) {
-    //     query = query.toLowerCase()
-    //     const blogs = await blogCollection.find({name: {$regex: query}}).toArray()
-    //     // const sortedBlogs = blogs.filter(blog => {
-    //     //     return blog.name.toLowerCase().indexOf(query) > -1
-    //     // })
-    //     return blogs.map(blog => this.blogMapForRender(blog))
-    // },
 
     async create(newBlog: BlogDBType): Promise<any> {
         const blog = {
