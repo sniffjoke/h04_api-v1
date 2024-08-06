@@ -1,13 +1,25 @@
-export const queryHelper = (query: { [key: string]: string | undefined }) => {
+import {blogCollection} from "../db/mongo-db";
+
+export const queryHelper = async (query: { [key: string]: string | undefined }) => {
+    const totalCount = await blogCollection.countDocuments()
+
+
+
     return {
         // pageNumber: query.pageNumber ? +query.pageNumber : 1,
         // pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
         // sortBy: query.sortBy ? +query.sortBy : 'createdAt',
         // sortDirection: query.sortDirection === 'asc' ? +query.sortDirection : 'desc',
         // searchNameTerm: query.searchNameTerm ? query.searchNameTerm : null,
-        pagesCount: query.pagesCount ? +query.pagesCount : 1,
-        page: query.page ? Number(query.page) : 1,
+        //
+        // pagesCount: query.pagesCount ? +query.pagesCount : 1,
+        // page: query.page ? Number(query.page) : 1,
+        // pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
+        // totalCount: query.totalCount ? +query.totalCount : 1,
+        //
+        totalCount,
         pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
-        totalCount: query.totalCount ? +query.totalCount : 1,
+        pagesCount: query.pageSize ? Math.ceil( totalCount / +query.pageSize) : 1,
+        page: query.page ? Number(query.page) : 1,
     }
 }

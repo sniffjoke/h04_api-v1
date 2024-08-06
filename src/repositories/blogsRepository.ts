@@ -11,7 +11,7 @@ export const blogsRepository = {
     // },
 
     async getAllBlogs(query: any) {
-        const blogs = await blogCollection.find().toArray()
+        const blogs = await blogCollection.find().limit(query.pageSize).toArray()
         return {
             ...query,
             items: blogs.map(blog => this.blogMapForRender(blog))
@@ -28,7 +28,6 @@ export const blogsRepository = {
     // },
 
     async create(newBlog: BlogDBType): Promise<any> {
-        // console.log(newBlog)
         const blog = {
             ...newBlog,
             isMembership: false,

@@ -5,7 +5,7 @@ import {queryHelper} from "../helpers/helpers";
 
 
 export const getController = async (req: Request<any, any, any, any>, res: Response) => {
-    const query = queryHelper(req.query)
+    const query = await queryHelper(req.query)
     // const blogs = await blogsRepository.getAllBlogsWithQuery(req.query.SearchNameTerm)
     const blogs = await blogsRepository.getAllBlogs(query)
     // Promise<Omit<BlogPaginanorModel, 'items'>>
