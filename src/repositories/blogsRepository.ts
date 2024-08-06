@@ -12,8 +12,13 @@ export const blogsRepository = {
 
 
     async getAllBlogs(query: any) {
+        const queryName = query.searchNameTerm !== null ? query.searchNameTerm : ''
+        const filter = {
+            name: {$regex: queryName, $options: "i"},
+        }
+
         const blogs = await blogCollection
-            .find()
+            .find(filter)
             .sort(query.sortBy, query.sortDirection)
             .limit(query.pageSize)
             .skip((query.page - 1) * query.pageSize)
