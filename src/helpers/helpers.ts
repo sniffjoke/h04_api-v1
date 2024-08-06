@@ -2,9 +2,7 @@ import {blogCollection} from "../db/mongo-db";
 
 export const queryHelper = async (query: { [key: string]: string | undefined }) => {
     const totalCount = await blogCollection.countDocuments()
-
-
-
+    const pageSize = query.pageSize ? Math.ceil(totalCount / +query.pageSize) : 10
     return {
         // pageNumber: query.pageNumber ? +query.pageNumber : 1,
         // pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
@@ -18,8 +16,9 @@ export const queryHelper = async (query: { [key: string]: string | undefined }) 
         // totalCount: query.totalCount ? +query.totalCount : 1,
         //
         totalCount,
-        pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
-        pagesCount: query.pageSize ? Math.ceil( totalCount / +query.pageSize) : 1,
+        // pageSize: query.pageSize !== undefined ? +query.pageSize : 10,
+        pageSize: pageSize !== undefined ? +pageSize : 10,
+        pagesCount: pageSize ? Math.ceil( totalCount / +pageSize) : 1,
         page: query.pageNumber ? Number(query.pageNumber) : 1,
     }
 }

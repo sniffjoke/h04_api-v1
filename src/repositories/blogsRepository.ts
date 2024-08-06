@@ -12,6 +12,7 @@ export const blogsRepository = {
 
 
     async getAllBlogs(query: any) {
+        // console.log(query)
         const blogs = await blogCollection.find()
             .limit(query.pageSize)
             .skip((query.page - 1) * query.pageSize)
