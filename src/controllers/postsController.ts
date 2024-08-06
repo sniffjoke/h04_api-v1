@@ -71,10 +71,26 @@ export const deleteController = async (req: Request, res: Response) => {
     }
 }
 
-export const getPostsByBlogId = async (req: Request, res: Response) => {
+export const getPostsByBlogId = async (req: Request<any, any, any, any>, res: Response) => {
     try {
-        const posts = await postsRepository.findPostsByBlogId(req.params.id)
-        res.status(200).json(posts)
+        // const posts = await postsRepository.findPostsByBlogId(req.params.id)
+        // res.status(200).json(posts)
+        const query = await queryHelper(req.query)
+        const posts = await postsRepository.findPostsByBlogId(req.params.id, query)
+        const {
+            pageSize,
+            pagesCount,
+            totalCount,
+            page,
+            items
+        } = posts
+        res.status(200).json({
+            pageSize,
+            pagesCount,
+            totalCount,
+            page,
+            items
+        })
     } catch (e) {
         res.status(500).send(e)
     }

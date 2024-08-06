@@ -70,9 +70,19 @@ export const postsRepository = {
         return await postCollection.deleteOne({_id: postId})
     },
 
-    async findPostsByBlogId(blogId: string) {
-        const posts = await postCollection.find({blogId}).toArray()
-        return posts.map((post: any) => this.postMapForRender(post))
+    async findPostsByBlogId(blogId: string, query: any) {
+        // const posts = await postCollection.find({blogId}).toArray()
+        // return posts.map((post: any) => this.postMapForRender(post))
+        const posts = await postCollection
+            .find({blogId})
+            .sort(query.sortBy, query.sortDirection)
+            .limit(query.pageSize)
+            .skip((query.page - 1) * query.pageSize)
+            .toArray()
+        return {
+            ...query,
+            items: posts.map((post: any) => this.postMapForRender(post))
+        }
     }
 
 }
