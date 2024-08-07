@@ -1,12 +1,11 @@
 import {db} from "../db/mongo-db";
 
-export const queryHelper = async (query: { [key: string]: string | undefined }, searchProperty: 'blogs' | 'posts') => {
+export const queryHelper = async (query: { [key: string]: string | undefined }, searchProperty: 'blogs' | 'posts', blogId?: string) => {
     const searchNameTerm = query.searchNameTerm ? query.searchNameTerm : null
     const queryName = searchNameTerm !== null ? searchNameTerm : ''
-    const filter = searchProperty === 'blogs' ? {name: {$regex: queryName, $options: "i"},} : {title: {$regex: queryName, $options: "i"},};
-    // const totalCount = await blogCollection.countDocuments(filter)
-    const totalCount = await db.collection(searchProperty).countDocuments(filter)
-    console.log(totalCount)
+    // const filter = searchProperty === 'blogs' ? {name: {$regex: queryName, $options: "i"},} : {};
+    const filter = blogId ? blogId : {}
+    const totalCount = await db.collection(searchProperty).countDocuments({blogId: filter})
     const pageSize = query.pageSize !== undefined ? +query.pageSize : 10
     const pagesCount = Math.ceil(totalCount / +pageSize)
 

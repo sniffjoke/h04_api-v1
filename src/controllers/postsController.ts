@@ -75,7 +75,8 @@ export const getPostsByBlogId = async (req: Request<any, any, any, any>, res: Re
     try {
         // const posts = await postsRepository.findPostsByBlogId(req.params.id)
         // res.status(200).json(posts)
-        const query = await queryHelper(req.query, 'posts')
+        console.log(req.params.id)
+        const query = await queryHelper(req.query, 'posts', req.params.id)
         const posts = await postsRepository.findPostsByBlogId(req.params.id, query)
         const {
             pageSize,

@@ -1,4 +1,3 @@
-import {BlogDBTypeResponse} from "./db.response.interface";
 
 export interface BlogDBType {
     name: string;
@@ -11,13 +10,4 @@ export interface PostDBType {
     shortDescription: string;
     content: string;
     blogId: string;
-}
-
-export interface BlogPaginatorModel {
-    pagesCount?: number;
-    page?: number;
-    pageSize?: number;
-    totalCount?: number;
-    SearchNameTerm?: string;
-    items: BlogDBTypeResponse[];
 }
